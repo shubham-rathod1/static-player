@@ -1,0 +1,9 @@
+#canvas {
+    position: absolute;
+    background: black;
+    margin-top: 10%;
+    width: 60%;
+    height: 50%;
+    top: 0;
+    left: 0;
+}
