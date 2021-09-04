@@ -25,13 +25,14 @@ function newBars() {
   rectBars.map((item) => ctx.fillRect(item.x, item.y, item.w, item.h));
 }
 newBars();
-let barsInterval;
 
 /// red bars starting here
 
+let barsInterval;
+let i = 0;
 function startBars() {
   ctx.fillStyle = "red";
-  let i = 0;
+  // console.log(i);
   barsInterval = setInterval(() => {
     if (i == 5) {
       clearInterval(barsInterval);
@@ -71,11 +72,16 @@ function drawRect() {
 // drawRect();
 const btn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
+const resetBtn = document.getElementById("reset")
 
 stopBtn.addEventListener("click", () => {
   stop();
 });
 btn.addEventListener("click", () => {
+  console.log(i);
   startBars();
 });
+resetBtn.addEventListener("click", () => {
+  newBars();
+})
 console.log(ctx);
