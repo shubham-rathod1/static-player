@@ -1,21 +1,49 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
 ctx.fillStyle = "white";
 
-// window.addEventListener("resize", () => {
-//   canvas.width = window.innerWidth;
-//   canvas.height = window.innerHeight;
-// });
+
 /// draw fixex graph
 
 let rectBars = [
-  { x: 70, y: 45, w: 13, idx: 0, h: 108 },
-  { x: 98, y: 20, w: 13, idx: 1, h: 120 },
-  { x: 126, y: 39, w: 13, idx: 2, h: 90 },
-  { x: 154, y: 50, w: 13, idx: 3, h: 95 },
-  { x: 180, y: 30, w: 13, idx: 4, h: 110 },
+  { x: 120, y: 160, w: 10, idx: 0, h: 108 },
+  { x: 135, y: 135, w: 10, idx: 1, h: 120 },
+  { x: 150, y: 150, w: 10, idx: 2, h: 90 },
+  { x: 165, y: 160, w: 10, idx: 3, h: 95 },
+  { x: 180, y: 140, w: 10, idx: 4, h: 70 },
+  { x: 195, y: 140, w: 10, idx: 5, h: 70 },
+  { x: 210, y: 185, w: 10, idx: 6, h: 108 },
+  { x: 225, y: 185, w: 10, idx: 7, h: 120 },
+  { x: 240, y: 185, w: 10, idx: 8, h: 90 },
+  { x: 255, y: 185, w: 10, idx: 9, h: 95 },
+  { x: 270, y: 185, w: 10, idx: 10, h: 70 },
+  { x: 285, y: 185, w: 10, idx: 11, h: 70 },
+  { x: 300, y: 140, w: 10, idx: 12, h: 108 },
+  { x: 315, y: 140, w: 10, idx: 13, h: 120 },
+  { x: 330, y: 140, w: 10, idx: 14, h: 90 },
+  { x: 345, y: 140, w: 10, idx: 15, h: 45 },
+  { x: 360, y: 140, w: 10, idx: 16, h: 45 },
+  { x: 375, y: 135, w: 10, idx: 17, h: 50 },
+  { x: 390, y: 160, w: 10, idx: 18, h: 108 },
+  { x: 405, y: 155, w: 10, idx: 19, h: 120 },
+  { x: 420, y: 170, w: 10, idx: 20, h: 90 },
+  { x: 435, y: 140, w: 10, idx: 21, h: 95 },
+  { x: 450, y: 155, w: 10, idx: 22, h: 70 },
+  { x: 465, y: 130, w: 10, idx: 23, h: 70 },
+  { x: 480, y: 160, w: 10, idx: 24, h: 108 },
+  { x: 495, y: 166, w: 10, idx: 25, h: 120 },
+  { x: 510, y: 154, w: 10, idx: 26, h: 90 },
+  { x: 525, y: 138, w: 10, idx: 27, h: 95 },
+  { x: 540, y: 120, w: 10, idx: 28, h: 70 },
+  { x: 555, y: 140, w: 10, idx: 29, h: 70 },
+  { x: 570, y: 162, w: 10, idx: 30, h: 108 },
+  { x: 585, y: 153, w: 10, idx: 31, h: 120 },
+  { x: 600, y: 162, w: 10, idx: 32, h: 90 },
+  { x: 615, y: 170, w: 10, idx: 33, h: 95 },
+  { x: 630, y: 140, w: 10, idx: 34, h: 50 },
+  { x: 645, y: 140, w: 10, idx: 35, h: 50 },
 ];
 
 function newBars() {
@@ -23,18 +51,6 @@ function newBars() {
   canvas.height = window.innerHeight;
   ctx.fillStyle = "white";
   rectBars.map((item) => ctx.fillRect(item.x, item.y, item.w, item.h));
-
-  // rectBars.map((item) => ctx.fillRect(10,10, 50, 150))
-
-  /////////
-  // for (j = 0; j < rectBars.length; j++) {
-  //   let x = rectBars[j].x,
-  //     y = rectBars[j].y,
-  //     w = rectBars[j].w,
-  //     h = rectBars[j].h;
-
-  //   ctx.fillRect(x, y, w, h);
-  // }
 }
 newBars();
 
@@ -55,7 +71,6 @@ function startBars() {
       h = rectBars[i].h;
 
     ctx.fillRect(x, y, w, h);
-    // console.log(rectBars[i].x, rectBars[i].y, rectBars[i].w, rectBars[i].h);
     i++;
   }, 1000);
 }
@@ -75,27 +90,19 @@ function test(index) {
   i = index + 1;
 }
 function getMousePosition(canvas, event) {
-  // let rect = canvas.getBoundingClientRect();
   let x = event.clientX - canvas.offsetLeft;
   let y = event.clientY - canvas.offsetTop;
   console.log("Coordinate x: " + x, "Coordinate y: " + y);
-  // console.log(canvas.offsetLeft);
 
   // finding index here ///
 
   for (k = 0; k < rectBars.length; k++) {
-    if (x >= (rectBars[k].x) && x <= (rectBars[k].x + 28) ) {
+    if (x >= rectBars[k].x && x <= rectBars[k].x + 28) {
       console.log(rectBars[k].idx);
-      test(rectBars[k].idx)
+      test(rectBars[k].idx);
     }
   }
-
-
-
-  ///////
 }
-
-// let canvasElem = document.querySelector("canvas");
 
 canvas.addEventListener("click", function (e) {
   getMousePosition(canvas, e);
@@ -127,11 +134,6 @@ function drawRect() {
 const btn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
 const resetBtn = document.getElementById("reset");
-const testBtn = document.getElementById("test");
-
-testBtn.addEventListener("click", () => {
-  test(2);
-});
 
 stopBtn.addEventListener("click", () => {
   stop();
@@ -144,4 +146,3 @@ resetBtn.addEventListener("click", () => {
   i = 0;
   clearInterval(barsInterval);
 });
-console.log(ctx);
