@@ -4,18 +4,18 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 ctx.fillStyle = "white";
 
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+// window.addEventListener("resize", () => {
+//   canvas.width = window.innerWidth;
+//   canvas.height = window.innerHeight;
+// });
 /// draw fixex graph
 
 let rectBars = [
-  { x: 50, y: 45, w: 10, h: 88 },
-  { x: 65, y: 20, w: 10, h: 100 },
-  { x: 80, y: 39, w: 10, h: 70 },
-  { x: 95, y: 50, w: 10, h: 75 },
-  { x: 110, y: 30, w: 10, h: 90 },
+  { x: 70, y: 45, w: 13, idx: 0, h: 108 },
+  { x: 98, y: 20, w: 13, idx: 1, h: 120 },
+  { x: 126, y: 39, w: 13, idx: 2, h: 90 },
+  { x: 154, y: 50, w: 13, idx: 3, h: 95 },
+  { x: 180, y: 30, w: 13, idx: 4, h: 110 },
 ];
 
 function newBars() {
@@ -23,6 +23,18 @@ function newBars() {
   canvas.height = window.innerHeight;
   ctx.fillStyle = "white";
   rectBars.map((item) => ctx.fillRect(item.x, item.y, item.w, item.h));
+
+  // rectBars.map((item) => ctx.fillRect(10,10, 50, 150))
+
+  /////////
+  // for (j = 0; j < rectBars.length; j++) {
+  //   let x = rectBars[j].x,
+  //     y = rectBars[j].y,
+  //     w = rectBars[j].w,
+  //     h = rectBars[j].h;
+
+  //   ctx.fillRect(x, y, w, h);
+  // }
 }
 newBars();
 
@@ -32,20 +44,62 @@ let barsInterval;
 let i = 0;
 function startBars() {
   ctx.fillStyle = "red";
-  // console.log(i);
   barsInterval = setInterval(() => {
-    if (i == 5) {
+    console.log(i);
+    if (i == rectBars.length) {
       clearInterval(barsInterval);
     }
     let x = rectBars[i].x,
       y = rectBars[i].y,
       w = rectBars[i].w,
       h = rectBars[i].h;
+
     ctx.fillRect(x, y, w, h);
-    console.log(rectBars[i].x, rectBars[i].y, rectBars[i].w, rectBars[i].h);
+    // console.log(rectBars[i].x, rectBars[i].y, rectBars[i].w, rectBars[i].h);
     i++;
   }, 1000);
 }
+
+function test(index) {
+  newBars();
+  i = index;
+  ctx.fillStyle = "red";
+
+  for (j = 0; j <= index; j++) {
+    let x = rectBars[j].x,
+      y = rectBars[j].y,
+      w = rectBars[j].w,
+      h = rectBars[j].h;
+    ctx.fillRect(x, y, w, h);
+  }
+  i = index + 1;
+}
+function getMousePosition(canvas, event) {
+  // let rect = canvas.getBoundingClientRect();
+  let x = event.clientX - canvas.offsetLeft;
+  let y = event.clientY - canvas.offsetTop;
+  console.log("Coordinate x: " + x, "Coordinate y: " + y);
+  // console.log(canvas.offsetLeft);
+
+  // finding index here ///
+
+  for (k = 0; k < rectBars.length; k++) {
+    if (x >= (rectBars[k].x) && x <= (rectBars[k].x + 28) ) {
+      console.log(rectBars[k].idx);
+      test(rectBars[k].idx)
+    }
+  }
+
+
+
+  ///////
+}
+
+// let canvasElem = document.querySelector("canvas");
+
+canvas.addEventListener("click", function (e) {
+  getMousePosition(canvas, e);
+});
 
 function stop() {
   clearInterval(barsInterval);
@@ -72,16 +126,22 @@ function drawRect() {
 // drawRect();
 const btn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
-const resetBtn = document.getElementById("reset")
+const resetBtn = document.getElementById("reset");
+const testBtn = document.getElementById("test");
+
+testBtn.addEventListener("click", () => {
+  test(2);
+});
 
 stopBtn.addEventListener("click", () => {
   stop();
 });
 btn.addEventListener("click", () => {
-  console.log(i);
   startBars();
 });
 resetBtn.addEventListener("click", () => {
   newBars();
-})
+  i = 0;
+  clearInterval(barsInterval);
+});
 console.log(ctx);
