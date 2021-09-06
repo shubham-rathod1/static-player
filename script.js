@@ -4,7 +4,6 @@ const ctx = canvas.getContext("2d");
 // canvas.height = window.innerHeight;
 ctx.fillStyle = "white";
 
-
 /// draw fixex graph
 
 let rectBars = [
@@ -53,6 +52,57 @@ function newBars() {
   rectBars.map((item) => ctx.fillRect(item.x, item.y, item.w, item.h));
 }
 newBars();
+function labels() {
+  ctx.fillStyle = "green";
+  ctx.fillRect(140, 50, 100, 20); // first green label
+  ctx.fillRect(168, 50, 2.5, 120); // line
+  ctx.beginPath(); // circle point
+  ctx.arc(170, 170, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.fillStyle = "teal";
+  ctx.fillRect(280, 50, 80, 20); // second teal label
+  ctx.fillRect(303, 50, 2.5, 120); // line
+  ctx.beginPath(); // circle point
+  ctx.arc(305, 170, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.fillStyle = "blue"; // third blue label
+  ctx.fillRect(460, 70, 80, 20);
+  ctx.fillRect(484, 70, 2.5, 120); // line
+  ctx.beginPath(); // circle point
+  ctx.arc(485, 190, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.fillStyle = "brown"; // fourth brown label
+  ctx.fillRect(385, 20, 210, 20);
+  ctx.fillRect(589, 40, 2.5, 130); // line
+  ctx.beginPath(); // circle point
+  ctx.arc(590, 170, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  // text here first label
+  ctx.fillStyle = "white";
+  ctx.font = "12pt sans-serif";
+  ctx.fillText("introduction", 148, 65);
+
+  // text here second label
+  ctx.fillStyle = "white";
+  ctx.font = "12pt sans-serif";
+  ctx.fillText("one_six", 288, 65);
+
+  // text here third label
+  ctx.fillStyle = "white";
+  ctx.font = "12pt sans-serif";
+  ctx.fillText("polite", 475, 85);
+
+  // text here fourth label
+  ctx.fillStyle = "white";
+  ctx.font = "12pt sans-serif";
+  ctx.fillText("Rapport Building - Empathy", 389, 35);
+}
+
+labels();
 
 /// red bars starting here
 
@@ -61,7 +111,6 @@ let i = 0;
 function startBars() {
   ctx.fillStyle = "red";
   barsInterval = setInterval(() => {
-    console.log(i);
     if (i == rectBars.length) {
       clearInterval(barsInterval);
     }
@@ -74,9 +123,11 @@ function startBars() {
     i++;
   }, 1000);
 }
+/// function to get player at desired point
 
 function test(index) {
   newBars();
+  labels();
   i = index;
   ctx.fillStyle = "red";
 
@@ -89,16 +140,14 @@ function test(index) {
   }
   i = index + 1;
 }
+
 function getMousePosition(canvas, event) {
   let x = event.clientX - canvas.offsetLeft;
   let y = event.clientY - canvas.offsetTop;
-  console.log("Coordinate x: " + x, "Coordinate y: " + y);
-
   // finding index here ///
 
   for (k = 0; k < rectBars.length; k++) {
     if (x >= rectBars[k].x && x <= rectBars[k].x + 28) {
-      console.log(rectBars[k].idx);
       test(rectBars[k].idx);
     }
   }
@@ -112,25 +161,7 @@ function stop() {
   clearInterval(barsInterval);
 }
 
-/// draw graphs
-
-let arry = [50, 65, 80, 95, 110, 125, 140, 155, 170, 185];
-function drawRect() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  ctx.fillStyle = "white";
-  for (i = 0; i < arry.length; i++) {
-    const min = 60,
-      max = 110;
-    let x = arry[i];
-    (y = Math.floor(Math.random() * 51)),
-      (h = Math.floor(Math.random() * (max - min) + min));
-    ctx.fillRect(x, y, w, h);
-    // console.log(x, y, w, h);
-  }
-  // requestAnimationFrame(drawRect);
-}
-// drawRect();
+/// Event listeners here
 const btn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
 const resetBtn = document.getElementById("reset");
@@ -145,4 +176,5 @@ resetBtn.addEventListener("click", () => {
   newBars();
   i = 0;
   clearInterval(barsInterval);
+  labels();
 });
